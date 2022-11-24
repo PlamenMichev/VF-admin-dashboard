@@ -1,7 +1,5 @@
 // @mui
 import { enUS, frFR, zhCN, viVN, arSD } from '@mui/material/locale';
-// components
-import { SettingsValueProps } from './components/settings/type';
 
 // LAYOUT
 // ----------------------------------------------------------------------
@@ -26,19 +24,6 @@ export const NAVBAR = {
 export const ICON = {
   NAVBAR_ITEM: 22,
   NAVBAR_ITEM_HORIZONTAL: 20,
-};
-
-// SETTINGS
-// Please remove `localStorage` when you change settings.
-// ----------------------------------------------------------------------
-
-export const defaultSettings: SettingsValueProps = {
-  themeMode: 'light',
-  themeDirection: 'ltr',
-  themeContrast: 'default',
-  themeLayout: 'horizontal',
-  themeColorPresets: 'blue',
-  themeStretch: false,
 };
 
 // MULTI LANGUAGES

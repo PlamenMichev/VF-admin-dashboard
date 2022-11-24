@@ -5,6 +5,7 @@ import DashboardLayout from '../layouts/dashboard';
 import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
 // components
 import LoadingScreen from '../components/LoadingScreen';
+import { PATHS } from './paths';
 
 // ----------------------------------------------------------------------
 
@@ -26,7 +27,7 @@ export default function Router() {
       element: <Navigate to="/dashboard/one" replace />,
     },
     {
-      path: '/dashboard',
+      path: PATHS.dashboard,
       element: <DashboardLayout />,
       children: [
         { element: <Navigate to="/dashboard/one" replace />, index: true },
