@@ -5,7 +5,7 @@ import DashboardLayout from '../layouts/dashboard';
 import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
 // components
 import LoadingScreen from '../components/LoadingScreen';
-import { PATHS } from './paths';
+import { PATHS, ROUTES, URLS } from './paths';
 
 // ----------------------------------------------------------------------
 
@@ -24,44 +24,28 @@ export default function Router() {
   return useRoutes([
     {
       path: '/',
-      element: <Navigate to="/dashboard/one" replace />,
+      element: <Navigate to={URLS.associationsList} replace />,
     },
     {
-      path: PATHS.dashboard,
+      path: ROUTES.dashboard,
       element: <DashboardLayout />,
       children: [
-        { element: <Navigate to="/dashboard/one" replace />, index: true },
-        { path: 'one', element: <PageOne /> },
-        { path: 'two', element: <PageTwo /> },
-        { path: 'three', element: <PageThree /> },
-        {
-          path: 'user',
-          children: [
-            { element: <Navigate to="/dashboard/user/four" replace />, index: true },
-            { path: 'four', element: <PageFour /> },
-            { path: 'five', element: <PageFive /> },
-            { path: 'six', element: <PageSix /> },
-          ],
-        },
+        { element: <Navigate to={URLS.associationsList} replace />, index: true },
+        { path: PATHS.associationsPath, element: <AssociationsList /> },
       ],
     },
     {
       path: '*',
       element: <LogoOnlyLayout />,
       children: [
-        { path: '404', element: <NotFound /> },
-        { path: '*', element: <Navigate to="/404" replace /> },
+        { path: PATHS[404], element: <NotFound /> },
+        { path: '*', element: <Navigate to={ROUTES[404]} replace /> },
       ],
     },
-    { path: '*', element: <Navigate to="/404" replace /> },
+    { path: '*', element: <Navigate to={ROUTES[404]} replace /> },
   ]);
 }
 
 // Dashboard
-const PageOne = Loadable(lazy(() => import('../pages/PageOne')));
-const PageTwo = Loadable(lazy(() => import('../pages/PageTwo')));
-const PageThree = Loadable(lazy(() => import('../pages/PageThree')));
-const PageFour = Loadable(lazy(() => import('../pages/PageFour')));
-const PageFive = Loadable(lazy(() => import('../pages/PageFive')));
-const PageSix = Loadable(lazy(() => import('../pages/PageSix')));
+const AssociationsList = Loadable(lazy(() => import('../pages/AssociationsList')));
 const NotFound = Loadable(lazy(() => import('../pages/Page404')));
