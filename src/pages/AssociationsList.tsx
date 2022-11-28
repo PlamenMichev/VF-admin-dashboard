@@ -1,13 +1,16 @@
 // @mui
 import { Container, Typography } from '@mui/material';
+import useLocales from 'src/hooks/useLocales';
 // components
 import Page from '../components/Page';
 
 // ----------------------------------------------------------------------
 
 export default function AssociationsList() {
+  const { translate } = useLocales();
+
   return (
-    <Page title="Page One">
+    <Page title={translate('associationsListPage.title')}>
       <Container>
         <Typography variant="h3" component="h1" paragraph>
           Page One
