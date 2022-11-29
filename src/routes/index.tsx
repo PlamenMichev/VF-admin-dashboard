@@ -6,6 +6,7 @@ import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
 // components
 import LoadingScreen from '../components/LoadingScreen';
 import { PATHS, ROUTES, URLS } from './paths';
+import Overview from 'src/pages/Overview';
 
 // ----------------------------------------------------------------------
 
@@ -32,6 +33,8 @@ export default function Router() {
       children: [
         { element: <Navigate to={URLS.associationsList} replace />, index: true },
         { path: PATHS.associationsPath, element: <AssociationsList /> },
+        { element: <Navigate to={URLS.overview} replace />, index: true },
+        { path: PATHS.overviewPath, element: <Overview /> },
       ],
     },
     {

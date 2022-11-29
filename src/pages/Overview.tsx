@@ -8,7 +8,7 @@ import BookingWidgetSummary from 'src/components/graphics/BookingWidgetSummary';
 // ----------------------------------------------------------------------
 import { BookingIllustration } from '../assets';
 
-export default function AssociationsList() {
+export default function Overview() {
   const { translate } = useLocales();
 
   return (
