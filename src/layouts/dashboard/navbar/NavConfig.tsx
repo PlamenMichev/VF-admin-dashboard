@@ -1,46 +1,19 @@
 // components
-import SvgIconStyle from '../../../components/SvgIconStyle';
+import Iconify from 'src/components/Iconify';
+import { URLS } from 'src/routes/paths';
 
 // ----------------------------------------------------------------------
 
-const getIcon = (name: string) => (
-  <SvgIconStyle src={`/assets/icons/navbar/${name}.svg`} sx={{ width: 1, height: 1 }} />
-);
-
 const ICONS = {
-  user: getIcon('ic_user'),
-  ecommerce: getIcon('ic_ecommerce'),
-  analytics: getIcon('ic_analytics'),
-  dashboard: getIcon('ic_dashboard'),
+  associations: <Iconify icon="majesticons:browser" />,
 };
 
 const navConfig = [
-  // GENERAL
-  // ----------------------------------------------------------------------
   {
-    subheader: 'general v3.5.0',
+    subheader: '',
     items: [
-      { title: 'One', path: '/dashboard/one', icon: ICONS.dashboard },
-      { title: 'Two', path: '/dashboard/two', icon: ICONS.ecommerce },
-      { title: 'Three', path: '/dashboard/three', icon: ICONS.analytics },
-    ],
-  },
-
-  // MANAGEMENT
-  // ----------------------------------------------------------------------
-  {
-    subheader: 'management',
-    items: [
-      {
-        title: 'user',
-        path: '/dashboard/user',
-        icon: ICONS.user,
-        children: [
-          { title: 'Four', path: '/dashboard/user/four' },
-          { title: 'Five', path: '/dashboard/user/five' },
-          { title: 'Six', path: '/dashboard/user/six' },
-        ],
-      },
+      //TODO Translate this string
+      { title: 'Associations', path: URLS.associationsList, icon: ICONS.associations },
     ],
   },
 ];
