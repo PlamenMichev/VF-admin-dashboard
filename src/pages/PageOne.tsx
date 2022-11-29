@@ -1,34 +1,63 @@
 // @mui
-import { Container, Typography } from '@mui/material';
+import { Container, Typography, Grid } from '@mui/material';
 // components
 import Page from '../components/Page';
-
+import BookingCheckInWidgets from '../components/graphics/BookingCheckInWidgets';
+import BookingWidgetSummary from 'src/components/graphics/BookingWidgetSummary';
 // ----------------------------------------------------------------------
+import { BookingIllustration } from '../assets';
 
 export default function PageOne() {
   return (
     <Page title="Page One">
-      <Container>
+      <Container style={{ display: 'flex', flexWrap: 'wrap', columnGap: '100' }}>
         <Typography variant="h3" component="h1" paragraph>
           Page One
         </Typography>
-        <Typography gutterBottom>
-          Curabitur turpis. Vestibulum facilisis, purus nec pulvinar iaculis, ligula mi congue nunc,
-          vitae euismod ligula urna in dolor. Nam quam nunc, blandit vel, luctus pulvinar,
-          hendreritth id, lorem. Phasellus blandit leo ut odio. Vestibulum ante ipsum primis in
-          faucibus orci luctus et ultrices posuere cubilia Curae; Fusce id purus. Aliquam lorem
-          ante, dapibus in, viverra quis, feugiat a, tellus. In consectetuer turpis ut velit. Aenean
-          posuere, tortor sed cursus feugiat, nunc augue blandit nunc, eu sollicitudin urna dolor
-          sagittis lacus. Vestibulum suscipit nulla quis orci. Nam commodo suscipit quam. Sed a
-          libero.
-        </Typography>
-        <Typography>
-          Praesent ac sem eget est egestas volutpat. Phasellus viverra nulla ut metus varius
-          laoreet. Curabitur ullamcorper ultricies nisi. Ut non enim eleifend felis pretium feugiat.
-          Donec mi odio, faucibus at, scelerisque quis, convallis in, nisi. Fusce vel dui. Quisque
-          libero metus, condimentum nec, tempor a, commodo mollis, magna. In enim justo, rhoncus ut,
-          imperdiet a, venenatis vitae, justo. Cras dapibus.
-        </Typography>
+        <Grid item xs={12} md={4}>
+          <BookingWidgetSummary
+            title="Associations"
+            total={714000}
+            icon={<BookingIllustration />}
+          />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <BookingWidgetSummary title="Units" total={714000} icon={<BookingIllustration />} />
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <BookingCheckInWidgets
+            title="Left the Platform"
+            chartData={[
+              { label: 'Associations', percent: 72, total: 38566 },
+              { label: 'Units', percent: 50, total: 18472 },
+            ]}
+          />
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <BookingCheckInWidgets
+            chartData={[
+              { label: 'Associations', percent: 72, total: 38566 },
+              { label: 'Units', percent: 64, total: 18472 },
+            ]}
+          />
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <BookingCheckInWidgets
+            chartData={[
+              { label: 'Associations', percent: 72, total: 38566 },
+              { label: 'Units', percent: 64, total: 18472 },
+            ]}
+          />
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <BookingCheckInWidgets
+            title="Left the Platform"
+            chartData={[
+              { label: 'Associations', percent: 72, total: 38566 },
+              { label: 'Units', percent: 64, total: 18472 },
+            ]}
+          />
+        </Grid>
       </Container>
     </Page>
   );
