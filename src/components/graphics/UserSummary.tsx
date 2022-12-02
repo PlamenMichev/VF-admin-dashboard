@@ -12,7 +12,7 @@ interface Props extends CardProps {
   icon: ReactElement;
 }
 
-export default function BookingWidgetSummary({ title, total, icon, sx, ...other }: Props) {
+export default function UserSummary({ title, total, icon, sx, ...other }: Props) {
   return (
     <Card
       sx={{

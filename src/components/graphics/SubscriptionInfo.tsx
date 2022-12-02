@@ -2,7 +2,7 @@ import merge from 'lodash/merge';
 import ReactApexChart from 'react-apexcharts';
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { Card, Typography, Stack, Divider, CardProps } from '@mui/material';
+import { Card, CardHeader, Typography, Stack, Divider, CardProps } from '@mui/material';
 // hooks
 import useResponsive from '../../hooks/useResponsive';
 // utils
@@ -15,6 +15,8 @@ import { BaseOptionChart } from '../chart';
 const CHART_SIZE = { width: 106, height: 106 };
 
 interface Props extends CardProps {
+  title?: string;
+  subheader?: string;
   chartData: {
     label: string;
     percent: number;
@@ -22,7 +24,7 @@ interface Props extends CardProps {
   }[];
 }
 
-export default function BookingCheckInWidgets({ chartData, ...other }: Props) {
+export default function SubscriptionInfo({ title, subheader, chartData, ...other }: Props) {
   const theme = useTheme();
 
   const isDesktop = useResponsive('up', 'sm');
@@ -58,6 +60,7 @@ export default function BookingCheckInWidgets({ chartData, ...other }: Props) {
 
   return (
     <Card {...other}>
+      <CardHeader title={title} subheader={subheader} />
       <Stack
         direction={{ xs: 'column', sm: 'row' }}
         divider={

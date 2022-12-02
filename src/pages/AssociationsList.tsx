@@ -3,8 +3,8 @@ import { Container, Typography, Grid } from '@mui/material';
 import useLocales from 'src/hooks/useLocales';
 // components
 import Page from '../components/Page';
-import BookingCheckInWidgets from '../components/graphics/BookingCheckInWidgets';
-import BookingWidgetSummary from 'src/components/graphics/BookingWidgetSummary';
+import BookingCheckInWidgets from '../components/graphics/SubscriptionInfo';
+import BookingWidgetSummary from 'src/components/graphics/UserSummary';
 // ----------------------------------------------------------------------
 import { BookingIllustration } from '../assets';
 
