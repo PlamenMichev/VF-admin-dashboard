@@ -4,14 +4,12 @@ import { Outlet } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import { Box } from '@mui/material';
 // hooks
-import useResponsive from '../../hooks/useResponsive';
 import useCollapseDrawer from '../../hooks/useCollapseDrawer';
 // config
 import { HEADER, NAVBAR } from '../../config';
 //
 import DashboardHeader from './header';
 import NavbarVertical from './navbar/NavbarVertical';
-import NavbarHorizontal from './navbar/NavbarHorizontal';
 
 // ----------------------------------------------------------------------
 
@@ -23,13 +21,11 @@ const MainStyle = styled('main', {
   shouldForwardProp: (prop) => prop !== 'collapseClick',
 })<MainStyleProps>(({ collapseClick, theme }) => ({
   flexGrow: 1,
-  paddingTop: HEADER.MOBILE_HEIGHT + 24,
-  paddingBottom: HEADER.MOBILE_HEIGHT + 24,
+  paddingLeft: 16,
+  paddingRight: 16,
+  paddingTop: HEADER.DASHBOARD_DESKTOP_HEIGHT,
+  paddingBottom: HEADER.DASHBOARD_DESKTOP_HEIGHT,
   [theme.breakpoints.up('lg')]: {
-    paddingLeft: 16,
-    paddingRight: 16,
-    paddingTop: HEADER.DASHBOARD_DESKTOP_HEIGHT + 24,
-    paddingBottom: HEADER.DASHBOARD_DESKTOP_HEIGHT + 24,
     width: `calc(100% - ${NAVBAR.DASHBOARD_WIDTH}px)`,
     transition: theme.transitions.create('margin-left', {
       duration: theme.transitions.duration.shorter,
@@ -45,40 +41,7 @@ const MainStyle = styled('main', {
 export default function DashboardLayout() {
   const { collapseClick, isCollapse } = useCollapseDrawer();
 
-  const isDesktop = useResponsive('up', 'lg');
-
   const [open, setOpen] = useState(false);
-
-  // if (verticalLayout) {
-  //   return (
-  //     <>
-  //       <DashboardHeader onOpenSidebar={() => setOpen(true)} verticalLayout={verticalLayout} />
-
-  //       {isDesktop ? (
-  //         <NavbarHorizontal />
-  //       ) : (
-  //         <NavbarVertical isOpenSidebar={open} onCloseSidebar={() => setOpen(false)} />
-  //       )}
-
-  //       <Box
-  //         component="main"
-  //         sx={{
-  //           px: { lg: 2 },
-  //           pt: {
-  //             xs: `${HEADER.MOBILE_HEIGHT + 24}px`,
-  //             lg: `${HEADER.DASHBOARD_DESKTOP_HEIGHT + 80}px`,
-  //           },
-  //           pb: {
-  //             xs: `${HEADER.MOBILE_HEIGHT + 24}px`,
-  //             lg: `${HEADER.DASHBOARD_DESKTOP_HEIGHT + 24}px`,
-  //           },
-  //         }}
-  //       >
-  //         <Outlet />
-  //       </Box>
-  //     </>
-  //   );
-  // }
 
   return (
     <Box

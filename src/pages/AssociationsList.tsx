@@ -13,6 +13,7 @@ import {
 import { useState } from 'react';
 import HeaderBreadcrumbs from 'src/components/HeaderBreadcrumbs';
 import Iconify from 'src/components/Iconify';
+import LoadingScreen from 'src/components/LoadingScreen';
 import Scrollbar from 'src/components/Scrollbar';
 import { TableHeadCustom, TableSelectedActions } from 'src/components/table';
 import useLocales from 'src/hooks/useLocales';
