@@ -1,10 +1,10 @@
 // @mui
-import { Container, Typography, Grid } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import useLocales from 'src/hooks/useLocales';
 // components
 import Page from '../components/Page';
-import BookingCheckInWidgets from '../components/graphics/BookingCheckInWidgets';
-import BookingWidgetSummary from 'src/components/graphics/BookingWidgetSummary';
+import BookingCheckInWidgets from '../components/graphics/SubscriptionInfo';
+import BookingWidgetSummary from 'src/components/graphics/UserSummary';
 // ----------------------------------------------------------------------
 import { BookingIllustration } from '../assets';
 
@@ -12,54 +12,59 @@ export default function Overview() {
   const { translate } = useLocales();
 
   return (
-    <Page title={translate('associationsListPage.title')}>
+    <Page title={translate('overviewPage.title')}>
       <Container>
-        <Typography variant="h3" component="h1" paragraph>
-          Page One
-        </Typography>
-        <Grid item xs={12} md={4}>
-          <BookingWidgetSummary
-            title="Associations"
-            total={714000}
-            icon={<BookingIllustration />}
-          />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <BookingWidgetSummary title="Units" total={714000} icon={<BookingIllustration />} />
-        </Grid>
-        <Grid item xs={12} md={12}>
-          <BookingCheckInWidgets
-            title="Left the Platform"
-            chartData={[
-              { label: 'Associations', percent: 72, total: 38566 },
-              { label: 'Units', percent: 50, total: 18472 },
-            ]}
-          />
-        </Grid>
-        <Grid item xs={12} md={12}>
-          <BookingCheckInWidgets
-            chartData={[
-              { label: 'Associations', percent: 72, total: 38566 },
-              { label: 'Units', percent: 64, total: 18472 },
-            ]}
-          />
-        </Grid>
-        <Grid item xs={12} md={12}>
-          <BookingCheckInWidgets
-            chartData={[
-              { label: 'Associations', percent: 72, total: 38566 },
-              { label: 'Units', percent: 64, total: 18472 },
-            ]}
-          />
-        </Grid>
-        <Grid item xs={12} md={12}>
-          <BookingCheckInWidgets
-            title="Left the Platform"
-            chartData={[
-              { label: 'Associations', percent: 72, total: 38566 },
-              { label: 'Units', percent: 64, total: 18472 },
-            ]}
-          />
+        <Grid container spacing={3} justifyContent="center">
+          <Grid item xs={12} md={4}>
+            <BookingWidgetSummary
+              title={translate('overviewPage.associations')}
+              total={714000}
+              icon={<BookingIllustration />}
+            />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <BookingWidgetSummary
+              title={translate('overviewPage.units')}
+              total={714000}
+              icon={<BookingIllustration />}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <BookingCheckInWidgets
+              title={translate('overviewPage.free')}
+              chartData={[
+                { label: translate('overviewPage.associations'), percent: 72, total: 38566 },
+                { label: translate('overviewPage.units'), percent: 50, total: 18472 },
+              ]}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <BookingCheckInWidgets
+              title={translate('overviewPage.basic')}
+              chartData={[
+                { label: translate('overviewPage.associations'), percent: 72, total: 38566 },
+                { label: translate('overviewPage.units'), percent: 64, total: 18472 },
+              ]}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <BookingCheckInWidgets
+              title={translate('overviewPage.premium')}
+              chartData={[
+                { label: translate('overviewPage.associations'), percent: 72, total: 38566 },
+                { label: translate('overviewPage.units'), percent: 64, total: 18472 },
+              ]}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <BookingCheckInWidgets
+              title={translate('overviewPage.left')}
+              chartData={[
+                { label: translate('overviewPage.associations'), percent: 72, total: 38566 },
+                { label: translate('overviewPage.units'), percent: 64, total: 18472 },
+              ]}
+            />
+          </Grid>
         </Grid>
       </Container>
     </Page>
