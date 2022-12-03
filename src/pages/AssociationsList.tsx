@@ -13,7 +13,6 @@ import {
 import { useState } from 'react';
 import HeaderBreadcrumbs from 'src/components/HeaderBreadcrumbs';
 import Iconify from 'src/components/Iconify';
-import LoadingScreen from 'src/components/LoadingScreen';
 import Scrollbar from 'src/components/Scrollbar';
 import { TableHeadCustom, TableSelectedActions } from 'src/components/table';
 import useLocales from 'src/hooks/useLocales';
@@ -22,8 +21,6 @@ import { URLS } from 'src/routes/paths';
 import AssociationTableRow from 'src/sections/associationsList/AssociationTableRow';
 // components
 import Page from '../components/Page';
-
-// ----------------------------------------------------------------------
 
 const SUBSCRIPTION_OPTIONS = (translate: Function) => [
   {
@@ -66,7 +63,7 @@ export default function AssociationsList() {
 
   const [orderBy, setOrderBy] = useState('createdAt');
   const [order, setOrder] = useState<'asc' | 'desc'>('desc');
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(25);
   const [selected, setSelected] = useState<string[]>([]);
 

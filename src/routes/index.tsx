@@ -6,6 +6,7 @@ import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
 // components
 import LoadingScreen from '../components/LoadingScreen';
 import { PATHS, ROUTES, URLS } from './paths';
+import Overview from 'src/pages/Overview';
 
 // ----------------------------------------------------------------------
 
@@ -24,13 +25,14 @@ export default function Router() {
   return useRoutes([
     {
       path: '/',
-      element: <Navigate to={URLS.associationsList} replace />,
+      element: <Navigate to={URLS.overview} replace />,
     },
     {
       path: ROUTES.dashboard,
       element: <DashboardLayout />,
       children: [
-        { element: <Navigate to={URLS.associationsList} replace />, index: true },
+        { element: <Navigate to={URLS.overview} replace />, index: true },
+        { path: PATHS.overviewPath, element: <Overview /> },
         { path: PATHS.associationsPath, element: <AssociationsList /> },
       ],
     },
