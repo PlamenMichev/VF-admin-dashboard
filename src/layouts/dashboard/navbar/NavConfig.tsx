@@ -14,6 +14,7 @@ const navConfig = [
     items: [
       //TODO Translate this string
       { title: 'Associations', path: URLS.associationsList, icon: ICONS.associations },
+      { title: 'Overview', path: URLS.overview, icon: ICONS.associations },
     ],
   },
 ];
