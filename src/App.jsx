@@ -6,7 +6,6 @@ import ThemeProvider from './theme';
 import ScrollToTop from './components/ScrollToTop';
 import { ProgressBarStyle } from './components/ProgressBar';
 import MotionLazyContainer from './components/animate/MotionLazyContainer';
-import { apiUrl } from './config';
 
 // ----------------------------------------------------------------------
 
