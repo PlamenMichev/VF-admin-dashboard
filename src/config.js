@@ -51,3 +51,4 @@ export const allLangs = [
 ];
 
 export const defaultLang = allLangs[1]; // Danish
+export const apiUrl = process.env.REACT_APP_API_URL;
