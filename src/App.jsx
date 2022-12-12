@@ -6,17 +6,20 @@ import ThemeProvider from './theme';
 import ScrollToTop from './components/ScrollToTop';
 import { ProgressBarStyle } from './components/ProgressBar';
 import MotionLazyContainer from './components/animate/MotionLazyContainer';
+import { AuthProvider } from './contexts/JWTContext';
 
 // ----------------------------------------------------------------------
 
 export default function App() {
   return (
-    <MotionLazyContainer>
-      <ThemeProvider>
-        <ProgressBarStyle />
-        <ScrollToTop />
-        <Router />
-      </ThemeProvider>
-    </MotionLazyContainer>
+    <AuthProvider>
+      <MotionLazyContainer>
+        <ThemeProvider>
+          <ProgressBarStyle />
+          <ScrollToTop />
+          <Router />
+        </ThemeProvider>
+      </MotionLazyContainer>
+    </AuthProvider>
   );
 }

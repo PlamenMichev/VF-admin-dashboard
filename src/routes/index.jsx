@@ -7,6 +7,7 @@ import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
 import LoadingScreen from '../components/LoadingScreen';
 import { PATHS, ROUTES, URLS } from './paths';
 import Overview from '../pages/Overview';
+import LoginPage from '../pages/auth/Login';
 
 // ----------------------------------------------------------------------
 
@@ -26,6 +27,17 @@ export default function Router() {
     {
       path: '/',
       element: <Navigate to={URLS.overview} replace />,
+    },
+    {
+      path: ROUTES.login,
+      element: <LogoOnlyLayout />,
+      children: [
+        { element: <Navigate to={URLS.login} replace />, index: true },
+        {
+          path: PATHS.login,
+          element: <LoginPage />,
+        },
+      ],
     },
     {
       path: ROUTES.dashboard,

@@ -29,6 +29,18 @@ const en = {
     basic: 'Basic',
     left: 'Left the Platform',
   },
+  loginPage: {
+    title: 'Login',
+    logininv: 'Email must be a valid email address',
+    loginReq: 'Email is required',
+    loginPas: 'Password is required',
+    email: 'Email address',
+    password: 'Password',
+    remember: 'Remember me',
+    welcome: 'Hi! Welcome back.',
+    signin: 'Sign in to Minimal',
+    details: 'Enter your details below.',
+  },
 };
 
 export default en;
