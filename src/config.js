@@ -3,6 +3,12 @@
 import { enUS, daDK } from '@mui/material/locale';
 import enLocale from 'date-fns/locale/en-US';
 import dkLocale from 'date-fns/locale/da';
+import { URLS } from './routes/paths';
+
+// API
+export const HOST_API = process.env.REACT_APP_API_URL || '';
+
+export const PATH_AFTER_LOGIN = URLS.overview; // as '/dashboard/app'
 
 // LAYOUT
 // ----------------------------------------------------------------------
@@ -51,4 +57,3 @@ export const allLangs = [
 ];
 
 export const defaultLang = allLangs[1]; // Danish
-export const apiUrl = process.env.REACT_APP_API_URL;
