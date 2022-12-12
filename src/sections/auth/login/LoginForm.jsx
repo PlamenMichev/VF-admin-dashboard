@@ -9,6 +9,7 @@ import { LoadingButton } from '@mui/lab';
 // hooks
 import useAuth from '../../../hooks/useAuth';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
+import useLocales from '../../../hooks/useLocales';
 // components
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
@@ -18,19 +19,23 @@ import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hoo
 export default function LoginForm() {
   const { login } = useAuth();
 
+  const { translate } = useLocales();
+
   const isMountedRef = useIsMountedRef();
 
   const [showPassword, setShowPassword] = useState(false);
 
   const LoginSchema = Yup.object().shape({
-    email: Yup.string().email('Email must be a valid email address').required('Email is required'),
-    password: Yup.string().required('Password is required'),
+    email: Yup.string()
+      .email(translate('loginPage.loginInv'))
+      .required(translate('loginPage.loginReq')),
+    password: Yup.string().required(translate('loginPage.loginPas')),
   });
 
   const defaultValues = {
-    email: 'demo@minimals.cc',
-    password: 'demo1234',
-    remember: true,
+    email: '',
+    password: '',
+    remember: false,
   };
 
   const methods = useForm({
@@ -64,11 +69,11 @@ export default function LoginForm() {
       <Stack spacing={3}>
         {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>}
 
-        <RHFTextField name="email" label="Email address" />
+        <RHFTextField name="email" label={translate('loginPage.email')} />
 
         <RHFTextField
           name="password"
-          label="Password"
+          label={translate('loginPage.password')}
           type={showPassword ? 'text' : 'password'}
           InputProps={{
             endAdornment: (
@@ -83,7 +88,7 @@ export default function LoginForm() {
       </Stack>
 
       <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
-        <RHFCheckbox name="remember" label="Remember me" />
+        <RHFCheckbox name="remember" label={translate('loginPage.remember')} />
       </Stack>
 
       <LoadingButton
@@ -93,7 +98,7 @@ export default function LoginForm() {
         variant="contained"
         loading={isSubmitting}
       >
-        Login
+        {translate('loginPage.title')}
       </LoadingButton>
     </FormProvider>
   );

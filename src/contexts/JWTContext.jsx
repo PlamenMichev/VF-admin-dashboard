@@ -84,6 +84,7 @@ function AuthProvider({ children }) {
     initialize();
   }, []);
 
+  //TODO Move 87-92 to service later
   const login = async (email, password) => {
     const response = await axios.post('/api/account/login', {
       email,
@@ -123,19 +124,7 @@ function AuthProvider({ children }) {
     dispatch();
   };
 
-  return (
-    <AuthContext.Provider
-      value={{
-        ...state,
-        method: 'jwt',
-        login,
-        logout,
-        register,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider>{children}</AuthContext.Provider>;
 }
 
 export { AuthContext, AuthProvider };

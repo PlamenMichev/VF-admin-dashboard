@@ -1,11 +1,9 @@
-import { capitalCase } from 'change-case';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Card, Stack, Alert, Tooltip, Container, Typography } from '@mui/material';
+import { Box, Card, Stack, Container, Typography } from '@mui/material';
 
 // hooks
-import useAuth from '../../hooks/useAuth';
-import useResponsive from '../../hooks/useResponsive';
+import useLocales from '../../hooks/useLocales';
 // components
 import Page from '../../components/Page';
 import Logo from '../../components/Logo';
@@ -59,57 +57,39 @@ const ContentStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function Login() {
-  const { method } = useAuth();
-
-  const smUp = useResponsive('up', 'sm');
-
-  const mdUp = useResponsive('up', 'md');
+  const { translate } = useLocales();
 
   return (
-    <Page title="Login">
+    <Page title={translate('loginPage.title')}>
       <RootStyle>
         <HeaderStyle>
           <Logo />
         </HeaderStyle>
 
-        {mdUp && (
-          <SectionStyle>
-            <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-              Hi, Welcome Back
-            </Typography>
-            <Image
-              visibleByDefault
-              disabledEffect
-              src="/assets/illustrations/illustration_login.png"
-              alt="login"
-            />
-          </SectionStyle>
-        )}
+        <SectionStyle>
+          <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
+            {translate('loginPage.welcome')}
+          </Typography>
+          <Image
+            visibleByDefault
+            disabledEffect
+            src="/assets/illustrations/illustration_login.png"
+            alt="login"
+          />
+        </SectionStyle>
 
         <Container maxWidth="sm">
           <ContentStyle>
             <Stack direction="row" alignItems="center" sx={{ mb: 5 }}>
               <Box sx={{ flexGrow: 1 }}>
                 <Typography variant="h4" gutterBottom>
-                  Sign in to Minimal
+                  {translate('loginPage.signin')}
                 </Typography>
-                <Typography sx={{ color: 'text.secondary' }}>Enter your details below.</Typography>
+                <Typography sx={{ color: 'text.secondary' }}>
+                  {translate('loginPage.details')}
+                </Typography>
               </Box>
-
-              <Tooltip title={capitalCase(method)} placement="right">
-                <>
-                  <Image
-                    disabledEffect
-                    src={`https://minimal-assets-api-dev.vercel.app/assets/icons/auth/ic_${method}.png`}
-                    sx={{ width: 32, height: 32 }}
-                  />
-                </>
-              </Tooltip>
             </Stack>
-
-            <Alert severity="info" sx={{ mb: 3 }}>
-              Use email : <strong>demo@minimals.cc</strong> / password :<strong> demo1234</strong>
-            </Alert>
 
             <LoginForm />
           </ContentStyle>
