@@ -124,7 +124,18 @@ function AuthProvider({ children }) {
     dispatch();
   };
 
-  return <AuthContext.Provider>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider
+      value={{
+        ...state,
+        login,
+        logout,
+        register,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export { AuthContext, AuthProvider };
