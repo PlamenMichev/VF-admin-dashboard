@@ -10,7 +10,7 @@ import {
   TablePagination,
   Tooltip,
 } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import HeaderBreadcrumbs from '../components/HeaderBreadcrumbs';
 import Iconify from '../components/Iconify';
 import Scrollbar from '../components/Scrollbar';
@@ -20,6 +20,7 @@ import { URLS } from '../routes/paths';
 import AssociationTableRow from '../sections/associationsList/AssociationTableRow';
 // components
 import Page from '../components/Page';
+import AssociationsService from '../serives/AssociationsService';
 
 const SUBSCRIPTION_OPTIONS = (translate) => [
   {
@@ -46,26 +47,51 @@ const TABLE_HEAD = (translate) => [
     id: 'subscription',
     label: translate('associationsListPage.tableHeads.subscription'),
     align: 'left',
+    disableSort: true,
   },
   {
     id: 'unitsCount',
     label: translate('associationsListPage.tableHeads.unitsCount'),
     align: 'left',
   },
-  { id: 'actions', label: translate('associationsListPage.tableHeads.actions'), align: 'left' },
+  {
+    id: 'actions',
+    label: translate('associationsListPage.tableHeads.actions'),
+    align: 'left',
+    disableSort: true,
+  },
 ];
 
 export default function AssociationsList() {
   const { translate } = useLocales();
 
-  const [tableData, setTableData] = useState(mockdata);
+  const [tableData, setTableData] = useState([]);
 
   const [orderBy, setOrderBy] = useState('createdAt');
   const [order, setOrder] = useState('asc');
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(25);
   const [selected, setSelected] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
 
+  useEffect(() => {
+    const fetchAssocaitions = async () => {
+      const result = await AssociationsService.getAssociations(
+        page + 1,
+        rowsPerPage,
+        orderBy,
+        order,
+        ''
+      );
+
+      setTableData(result.data);
+      setRowsPerPage(result.pagination.perPage);
+      setTotalCount(result.pagination.totalCount);
+    };
+
+    fetchAssocaitions();
+  }, [page, rowsPerPage, orderBy, order]);
+  console.log(tableData);
   const onSelectAllRows = (checked, newSelecteds) => {
     if (checked) {
       setSelected(newSelecteds);
@@ -193,17 +219,15 @@ export default function AssociationsList() {
               />
 
               <TableBody>
-                {tableData
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => (
-                    <AssociationTableRow
-                      key={row.id}
-                      row={row}
-                      selected={selected.includes(row.id)}
-                      onSelectRow={() => onSelectRow(row.id)}
-                      onDeleteRow={() => handleDeleteRow(row.id)}
-                    />
-                  ))}
+                {tableData.map((row) => (
+                  <AssociationTableRow
+                    key={row.id}
+                    row={row}
+                    selected={selected.includes(row.id)}
+                    onSelectRow={() => onSelectRow(row.id)}
+                    onDeleteRow={() => handleDeleteRow(row.id)}
+                  />
+                ))}
               </TableBody>
             </Table>
           </TableContainer>
@@ -213,7 +237,7 @@ export default function AssociationsList() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={tableData.length}
+            count={totalCount}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={onChangePage}
@@ -224,86 +248,3 @@ export default function AssociationsList() {
     </Page>
   );
 }
-
-const mockdata = [
-  {
-    id: 'gaasgasgasgas',
-    name: 'RAF ApS',
-    subdomain: 'rafaps',
-    unitsCount: 0,
-    subscription: 1,
-    createdAt: new Date(),
-  },
-  {
-    id: 'zxcbxzc23423',
-    name: 'RAF ApS',
-    subdomain: 'rafaps',
-    unitsCount: 0,
-    subscription: 2,
-    createdAt: new Date(),
-  },
-  {
-    id: 'asdhaeweghasweg',
-    name: 'RAF ApS',
-    subdomain: 'rafaps',
-    unitsCount: 0,
-    subscription: 3,
-    createdAt: new Date(),
-  },
-  {
-    id: 'ashsdhaw',
-    name: 'RAF ApS',
-    subdomain: 'rafaps',
-    unitsCount: 0,
-    subscription: 4,
-    createdAt: new Date(),
-  },
-  {
-    id: 'cabsdghdas',
-    name: 'RAF ApS',
-    subdomain: 'rafaps',
-    unitsCount: 0,
-    subscription: 2,
-    createdAt: new Date(),
-  },
-  {
-    id: 'asdhasgeaw',
-    name: 'RAF ApS',
-    subdomain: 'rafaps',
-    unitsCount: 0,
-    subscription: 3,
-    createdAt: new Date(),
-  },
-  {
-    id: 'ajdfasrj',
-    name: 'RAF ApS',
-    subdomain: 'rafaps',
-    unitsCount: 0,
-    subscription: 4,
-    createdAt: new Date(),
-  },
-  {
-    id: 'qwasdghasdasd',
-    name: 'RAF ApS',
-    subdomain: 'rafaps',
-    unitsCount: 0,
-    subscription: 5,
-    createdAt: new Date(),
-  },
-  {
-    id: 'asdhasdhasj',
-    name: 'RAF ApS',
-    subdomain: 'rafaps',
-    unitsCount: 0,
-    subscription: 1,
-    createdAt: new Date(),
-  },
-  {
-    id: 'asdgasdg',
-    name: 'RAF ApS',
-    subdomain: 'rafaps',
-    unitsCount: 0,
-    subscription: 2,
-    createdAt: new Date(),
-  },
-];
