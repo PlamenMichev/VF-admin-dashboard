@@ -91,7 +91,7 @@ export default function AssociationsList() {
 
     fetchAssocaitions();
   }, [page, rowsPerPage, orderBy, order]);
-  console.log(tableData);
+
   const onSelectAllRows = (checked, newSelecteds) => {
     if (checked) {
       setSelected(newSelecteds);
