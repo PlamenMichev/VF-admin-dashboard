@@ -1,6 +1,16 @@
 const en = {
-  dashboard: {
-    title: 'Dashboard',
+  common: {
+    logoutButton: 'Logout',
+  },
+  navigation: {
+    overview: 'Overview',
+    associations: 'Associations',
+    weeklyReport: 'Weekly report',
+    demoCalendar: 'Demo calendar',
+  },
+  comingSoon: {
+    title: 'Coming soon',
+    description: 'We are currently working hard on this page',
   },
   associationsListPage: {
     title: 'Associations list',
@@ -18,12 +28,22 @@ const en = {
       subscription: 'Subscription',
       unitsCount: 'Units count',
       actions: 'Actions',
+      createdAt: 'Created at',
     },
+    active: 'Active',
+    notActive: 'Not Active',
   },
   overviewPage: {
     title: 'Overview',
     associations: 'Associations',
     units: 'Units',
+    subsriptionTypes: {
+      0: 'Free trial',
+      1: 'Basic',
+      2: 'Moved from MinEjerforening',
+      3: 'Standart',
+      4: 'Plus',
+    },
     free: 'Free',
     premium: 'Premium',
     basic: 'Basic',

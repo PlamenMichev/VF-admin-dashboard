@@ -1,5 +1,5 @@
 // @mui
-import { Box, Tooltip, ListItemButtonProps } from '@mui/material';
+import { Box, Tooltip } from '@mui/material';
 //
 import Iconify from '../../Iconify';
 import { ListItemStyle, ListItemTextStyle, ListItemIconStyle } from './style';

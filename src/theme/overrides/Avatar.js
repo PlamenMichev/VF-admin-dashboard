@@ -1,7 +1,3 @@
-import { Theme } from '@mui/material/styles';
-
-// ----------------------------------------------------------------------
-
 export default function Avatar(theme) {
   return {
     MuiAvatar: {

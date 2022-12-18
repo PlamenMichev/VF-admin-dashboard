@@ -1,60 +1,29 @@
-import { useState } from 'react';
 // @mui
-import { Checkbox, TableRow, TableCell, MenuItem } from '@mui/material';
+import { TableRow, TableCell } from '@mui/material';
 import Label from '../../components/Label';
-import Iconify from '../../components/Iconify';
-import { TableMoreMenu } from '../../components/table';
+import useLocales from '../../hooks/useLocales';
 
 export default function AssociationTableRow({ row, selected, onSelectRow, onDeleteRow }) {
-  const { name, subdomain, subscription, unitsCount } = row;
-
-  const [openMenu, setOpenMenuActions] = useState();
-
-  const handleOpenMenu = (event) => {
-    setOpenMenuActions(event.currentTarget);
-  };
-
-  const handleCloseMenu = () => {
-    setOpenMenuActions(null);
-  };
+  const { translate } = useLocales();
+  const { name, subdomain, hasActiveSubscription, unitsCount, createdAt } = row;
 
   return (
     <TableRow hover selected={selected}>
-      <TableCell padding="checkbox">
-        <Checkbox checked={selected} onClick={onSelectRow} />
-      </TableCell>
-
       <TableCell>{name}</TableCell>
 
       <TableCell>{subdomain}</TableCell>
 
       <TableCell>
-        <Label>{subscription}</Label>
+        <Label color={hasActiveSubscription ? 'success' : 'error'}>
+          {hasActiveSubscription
+            ? translate('associationsListPage.active')
+            : translate('associationsListPage.notActive')}
+        </Label>
       </TableCell>
 
       <TableCell>{unitsCount}</TableCell>
 
-      <TableCell align="right">
-        <TableMoreMenu
-          open={openMenu}
-          onOpen={handleOpenMenu}
-          onClose={handleCloseMenu}
-          actions={
-            <>
-              <MenuItem
-                onClick={() => {
-                  onDeleteRow();
-                  handleCloseMenu();
-                }}
-                sx={{ color: 'error.main' }}
-              >
-                <Iconify icon={'eva:trash-2-outline'} />
-                Delete
-              </MenuItem>
-            </>
-          }
-        />
-      </TableCell>
+      <TableCell>{new Date(createdAt).toLocaleDateString()}</TableCell>
     </TableRow>
   );
 }

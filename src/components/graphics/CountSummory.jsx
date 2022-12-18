@@ -2,7 +2,7 @@ import { Card, Typography, Box } from '@mui/material';
 // utils
 import { fShortenNumber } from '../../utils/formatNumber';
 
-export default function UserSummary({ title, total, icon, sx, ...other }) {
+export default function CountSummory({ title, total, icon, sx, ...other }) {
   return (
     <Card
       sx={{

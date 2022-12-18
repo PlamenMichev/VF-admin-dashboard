@@ -10,6 +10,7 @@ import Logo from '../../components/Logo';
 import Image from '../../components/Image';
 // sections
 import LoginForm from '../../sections/auth/login/LoginForm';
+import LanguagePopover from '../../layouts/dashboard/header/LanguagePopover';
 
 // ----------------------------------------------------------------------
 
@@ -64,6 +65,7 @@ export default function Login() {
       <RootStyle>
         <HeaderStyle>
           <Logo />
+          <LanguagePopover />
         </HeaderStyle>
 
         <SectionStyle>
