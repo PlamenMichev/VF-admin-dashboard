@@ -1,13 +1,6 @@
 // @mui
 import { alpha, styled } from '@mui/material/styles';
-import {
-  ListItemText,
-  ListItemIcon,
-  ListSubheader,
-  ListItemButton,
-  ListItemTextProps,
-  ListItemButtonProps,
-} from '@mui/material';
+import { ListItemText, ListItemIcon, ListSubheader, ListItemButton } from '@mui/material';
 // utils
 import cssStyles from '../../../utils/cssStyles';
 // config
@@ -52,6 +45,7 @@ export const ListItemTextStyle = styled(ListItemText, {
   transition: theme.transitions.create(['width', 'opacity'], {
     duration: theme.transitions.duration.shorter,
   }),
+  textTransform: 'none',
   ...(isCollapse && {
     width: 0,
     opacity: 0,

@@ -2,43 +2,24 @@
 import {
   Box,
   Card,
-  IconButton,
-  Stack,
+  CircularProgress,
   Table,
   TableBody,
+  TableCell,
   TableContainer,
   TablePagination,
-  Tooltip,
+  TableRow,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import HeaderBreadcrumbs from '../components/HeaderBreadcrumbs';
-import Iconify from '../components/Iconify';
 import Scrollbar from '../components/Scrollbar';
-import { TableHeadCustom, TableSelectedActions } from '../components/table';
+import { TableHeadCustom } from '../components/table';
 import useLocales from '../hooks/useLocales';
 import { URLS } from '../routes/paths';
 import AssociationTableRow from '../sections/associationsList/AssociationTableRow';
 // components
 import Page from '../components/Page';
 import AssociationsService from '../serives/AssociationsService';
-
-const SUBSCRIPTION_OPTIONS = (translate) => [
-  {
-    label: translate('associationsListPage.subscriptions.freeTrial'),
-    value: 0,
-  },
-  { label: translate('associationsListPage.subscriptions.basic'), value: 1 },
-  {
-    label: translate('associationsListPage.subscriptions.standart'),
-    value: 2,
-  },
-  { label: translate('associationsListPage.subscriptions.plus'), value: 3 },
-  { label: translate('associationsListPage.subscriptions.moved'), value: 4 },
-  {
-    label: translate('associationsListPage.subscriptions.freeTrialManual'),
-    value: 5,
-  },
-];
 
 const TABLE_HEAD = (translate) => [
   { id: 'name', label: translate('associationsListPage.tableHeads.name'), align: 'left' },
@@ -55,10 +36,9 @@ const TABLE_HEAD = (translate) => [
     align: 'left',
   },
   {
-    id: 'actions',
-    label: translate('associationsListPage.tableHeads.actions'),
+    id: 'createdAt',
+    label: translate('associationsListPage.tableHeads.createdAt'),
     align: 'left',
-    disableSort: true,
   },
 ];
 
@@ -71,11 +51,12 @@ export default function AssociationsList() {
   const [order, setOrder] = useState('asc');
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(25);
-  const [selected, setSelected] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchAssocaitions = async () => {
+      setLoading(true);
       const result = await AssociationsService.getAssociations(
         page + 1,
         rowsPerPage,
@@ -87,30 +68,11 @@ export default function AssociationsList() {
       setTableData(result.data);
       setRowsPerPage(result.pagination.perPage);
       setTotalCount(result.pagination.totalCount);
+      setLoading(false);
     };
 
     fetchAssocaitions();
   }, [page, rowsPerPage, orderBy, order]);
-
-  const onSelectAllRows = (checked, newSelecteds) => {
-    if (checked) {
-      setSelected(newSelecteds);
-      return;
-    }
-    setSelected([]);
-  };
-
-  const handleDeleteRow = (id) => {
-    const deleteRow = tableData.filter((row) => row.id !== id);
-    setSelected([]);
-    setTableData(deleteRow);
-  };
-
-  const handleDeleteRows = (selected) => {
-    const deleteRows = tableData.filter((row) => !selected.includes(row.id));
-    setSelected([]);
-    setTableData(deleteRows);
-  };
 
   const onSort = (id) => {
     const isAsc = orderBy === id && order === 'asc';
@@ -118,26 +80,6 @@ export default function AssociationsList() {
       setOrder(isAsc ? 'desc' : 'asc');
       setOrderBy(id);
     }
-  };
-
-  const onSelectRow = (id) => {
-    const selectedIndex = selected.indexOf(id);
-
-    let newSelected = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-    setSelected(newSelected);
   };
 
   const onChangePage = (event, newPage) => {
@@ -162,73 +104,30 @@ export default function AssociationsList() {
       <Card>
         <Scrollbar>
           <TableContainer>
-            {selected.length > 0 && (
-              <TableSelectedActions
-                numSelected={selected.length}
-                rowCount={tableData.length}
-                onSelectAllRows={(checked) =>
-                  onSelectAllRows(
-                    checked,
-                    tableData.map((row) => row.id)
-                  )
-                }
-                actions={
-                  <Stack spacing={1} direction="row">
-                    <Tooltip title="Sent">
-                      <IconButton color="primary">
-                        <Iconify icon={'ic:round-send'} />
-                      </IconButton>
-                    </Tooltip>
-
-                    <Tooltip title="Download">
-                      <IconButton color="primary">
-                        <Iconify icon={'eva:download-outline'} />
-                      </IconButton>
-                    </Tooltip>
-
-                    <Tooltip title="Print">
-                      <IconButton color="primary">
-                        <Iconify icon={'eva:printer-fill'} />
-                      </IconButton>
-                    </Tooltip>
-
-                    <Tooltip title="Delete">
-                      <IconButton color="primary" onClick={() => handleDeleteRows(selected)}>
-                        <Iconify icon={'eva:trash-2-outline'} />
-                      </IconButton>
-                    </Tooltip>
-                  </Stack>
-                }
-              />
-            )}
-
             <Table>
               <TableHeadCustom
                 order={order}
                 orderBy={orderBy}
                 headLabel={TABLE_HEAD(translate)}
                 rowCount={tableData.length}
-                numSelected={selected.length}
                 onSort={onSort}
-                onSelectAllRows={(checked) =>
-                  onSelectAllRows(
-                    checked,
-                    tableData.map((row) => row.id)
-                  )
-                }
               />
 
-              <TableBody>
-                {tableData.map((row) => (
-                  <AssociationTableRow
-                    key={row.id}
-                    row={row}
-                    selected={selected.includes(row.id)}
-                    onSelectRow={() => onSelectRow(row.id)}
-                    onDeleteRow={() => handleDeleteRow(row.id)}
-                  />
-                ))}
-              </TableBody>
+              {loading ? (
+                <TableBody>
+                  <TableRow>
+                    <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
+                      <CircularProgress color="primary" />
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              ) : (
+                <TableBody>
+                  {tableData.map((row) => (
+                    <AssociationTableRow key={row.id} row={row} />
+                  ))}
+                </TableBody>
+              )}
             </Table>
           </TableContainer>
         </Scrollbar>

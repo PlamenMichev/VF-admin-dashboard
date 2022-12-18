@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 // @mui
-import { Box, Tooltip, ListItemButtonProps, ListItemText, ListItemIcon } from '@mui/material';
+import { Box, Tooltip, ListItemText, ListItemIcon } from '@mui/material';
 // config
 import { ICON } from '../../../config';
 import Iconify from '../../Iconify';

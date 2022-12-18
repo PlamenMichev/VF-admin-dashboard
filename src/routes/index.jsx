@@ -29,7 +29,7 @@ export default function Router() {
       element: <Navigate to={URLS.overview} replace />,
     },
     {
-      path: ROUTES.login,
+      path: ROUTES.auth,
       element: <LogoOnlyLayout />,
       children: [
         { element: <Navigate to={URLS.login} replace />, index: true },
@@ -46,6 +46,8 @@ export default function Router() {
         { element: <Navigate to={URLS.overview} replace />, index: true },
         { path: PATHS.overviewPath, element: <Overview /> },
         { path: PATHS.associationsPath, element: <AssociationsList /> },
+        { path: PATHS.weeklyReport, element: <ComingSoon /> },
+        { path: PATHS.demoCalendar, element: <ComingSoon /> },
       ],
     },
     {
@@ -63,3 +65,4 @@ export default function Router() {
 // Dashboard
 const AssociationsList = Loadable(lazy(() => import('../pages/AssociationsList')));
 const NotFound = Loadable(lazy(() => import('../pages/Page404')));
+const ComingSoon = Loadable(lazy(() => import('../pages/ComingSoon')));

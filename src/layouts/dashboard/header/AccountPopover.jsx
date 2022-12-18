@@ -5,10 +5,16 @@ import { Box, Divider, Typography, MenuItem, Avatar } from '@mui/material';
 // components
 import MenuPopover from '../../../components/MenuPopover';
 import { IconButtonAnimate } from '../../../components/animate';
+import useLocales from '../../../hooks/useLocales';
+import { URLS } from '../../../routes/paths';
+import { useNavigate } from 'react-router';
 
 // ----------------------------------------------------------------------
 
 export default function AccountPopover() {
+  const { translate } = useLocales();
+  const navigate = useNavigate();
+
   const [open, setOpen] = useState(null);
 
   const handleOpen = (event) => {
@@ -38,10 +44,7 @@ export default function AccountPopover() {
           }),
         }}
       >
-        <Avatar
-          src="https://minimal-assets-api-dev.vercel.app/assets/images/avatars/avatar_5.jpg"
-          alt="Rayan Moran"
-        />
+        <Avatar src="" alt="Vores Forening Admin" />
       </IconButtonAnimate>
 
       <MenuPopover
@@ -60,16 +63,18 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            Rayan Moran
+            Vores Forening Admin
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            rayan.moran@gmail.com
+            admin@voresforening.com
           </Typography>
         </Box>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <MenuItem sx={{ m: 1 }}>Logout</MenuItem>
+        <MenuItem sx={{ m: 1 }} onClick={() => navigate(URLS.login)}>
+          {translate('common.logoutButton')}
+        </MenuItem>
       </MenuPopover>
     </>
   );

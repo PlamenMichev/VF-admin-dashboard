@@ -3,68 +3,86 @@ import { Container, Grid } from '@mui/material';
 import useLocales from '../hooks/useLocales';
 // components
 import Page from '../components/Page';
-import BookingCheckInWidgets from '../components/graphics/SubscriptionInfo';
-import BookingWidgetSummary from '../components/graphics/UserSummary';
+import SubscriptionInfo from '../components/graphics/SubscriptionInfo';
+import CountSummory from '../components/graphics/CountSummory';
 // ----------------------------------------------------------------------
 import { BookingIllustration } from '../assets';
+import { useEffect, useState } from 'react';
+import LoadingScreen from '../components/LoadingScreen';
+import OverviewService from '../serives/OverviewService';
 
 export default function Overview() {
   const { translate } = useLocales();
 
-  return (
+  const [loading, setLoading] = useState(true);
+  const [associationsUnitsCount, setAssociationsUnitsCount] = useState({
+    associationsCount: 0,
+    unitsCount: 0,
+  });
+  const [subscriptionsData, setSubscriptionsData] = useState([
+    {
+      subscriptionType: 0,
+      associationsPercantage: 0,
+      associationsCount: 0,
+      unitsPercantage: 0,
+      unitsCount: 0,
+    },
+  ]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const associationsUnitsCountResult = await OverviewService.getAssociationsAndUnitsCount();
+      const subscriptionsDataResult = await OverviewService.getSubscriptionsCount();
+
+      setAssociationsUnitsCount(associationsUnitsCountResult.data);
+      setSubscriptionsData(subscriptionsDataResult.data);
+
+      setLoading(false);
+    };
+
+    fetchData();
+  }, []);
+  console.log(associationsUnitsCount);
+  console.log(subscriptionsData);
+  return loading ? (
+    <LoadingScreen />
+  ) : (
     <Page title={translate('overviewPage.title')}>
       <Container>
         <Grid container spacing={3} justifyContent="center">
           <Grid item xs={12} md={4}>
-            <BookingWidgetSummary
+            <CountSummory
               title={translate('overviewPage.associations')}
-              total={714000}
+              total={associationsUnitsCount.associationsCount}
               icon={<BookingIllustration />}
             />
           </Grid>
           <Grid item xs={12} md={4}>
-            <BookingWidgetSummary
+            <CountSummory
               title={translate('overviewPage.units')}
-              total={714000}
+              total={associationsUnitsCount.unitsCount}
               icon={<BookingIllustration />}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
-            <BookingCheckInWidgets
-              title={translate('overviewPage.free')}
-              chartData={[
-                { label: translate('overviewPage.associations'), percent: 72, total: 38566 },
-                { label: translate('overviewPage.units'), percent: 50, total: 18472 },
-              ]}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <BookingCheckInWidgets
-              title={translate('overviewPage.basic')}
-              chartData={[
-                { label: translate('overviewPage.associations'), percent: 72, total: 38566 },
-                { label: translate('overviewPage.units'), percent: 64, total: 18472 },
-              ]}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <BookingCheckInWidgets
-              title={translate('overviewPage.premium')}
-              chartData={[
-                { label: translate('overviewPage.associations'), percent: 72, total: 38566 },
-                { label: translate('overviewPage.units'), percent: 64, total: 18472 },
-              ]}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <BookingCheckInWidgets
-              title={translate('overviewPage.left')}
-              chartData={[
-                { label: translate('overviewPage.associations'), percent: 72, total: 38566 },
-                { label: translate('overviewPage.units'), percent: 64, total: 18472 },
-              ]}
-            />
-          </Grid>
+          {subscriptionsData.map((subscription) => (
+            <Grid item xs={12} md={6} key={subscription.subscriptionType}>
+              <SubscriptionInfo
+                title={translate('overviewPage.subsriptionTypes.' + subscription.subscriptionType)}
+                chartData={[
+                  {
+                    label: translate('overviewPage.associations'),
+                    percent: subscription.associationsPercantage.toFixed(2),
+                    total: subscription.associationsCount,
+                  },
+                  {
+                    label: translate('overviewPage.units'),
+                    percent: subscription.unitsPercantage.toFixed(2),
+                    total: subscription.unitsCount,
+                  },
+                ]}
+              />
+            </Grid>
+          ))}
         </Grid>
       </Container>
     </Page>

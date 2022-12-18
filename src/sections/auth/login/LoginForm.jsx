@@ -7,21 +7,18 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Stack, Alert, IconButton, InputAdornment } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // hooks
-import useAuth from '../../../hooks/useAuth';
-import useIsMountedRef from '../../../hooks/useIsMountedRef';
 import useLocales from '../../../hooks/useLocales';
 // components
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
+import { useNavigate } from 'react-router';
+import { URLS } from '../../../routes/paths';
 
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
-  const { login } = useAuth();
-
   const { translate } = useLocales();
-
-  const isMountedRef = useIsMountedRef();
+  const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -44,7 +41,6 @@ export default function LoginForm() {
   });
 
   const {
-    reset,
     setError,
     handleSubmit,
     formState: { errors, isSubmitting },
@@ -52,15 +48,10 @@ export default function LoginForm() {
 
   const onSubmit = async (data) => {
     try {
-      await login(data.email, data.password);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      navigate(URLS.overview);
     } catch (error) {
-      console.error(error);
-
-      reset();
-
-      if (isMountedRef.current) {
-        setError('afterSubmit', { ...error, message: error.message });
-      }
+      setError('afterSubmit', { ...error, message: error.message });
     }
   };
 
