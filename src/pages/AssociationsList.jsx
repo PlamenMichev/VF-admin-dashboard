@@ -64,7 +64,7 @@ export default function AssociationsList() {
         order,
         ''
       );
-
+      console.log(result);
       setTableData(result.data);
       setRowsPerPage(result.pagination.perPage);
       setTotalCount(result.pagination.totalCount);
@@ -96,7 +96,7 @@ export default function AssociationsList() {
       <HeaderBreadcrumbs
         heading={translate('associationsListPage.title')}
         links={[
-          { name: translate('dashboard.title'), href: URLS.associationsList },
+          { name: translate('overviewPage.title'), href: URLS.associationsList },
           { name: translate('associationsListPage.title') },
         ]}
       />
