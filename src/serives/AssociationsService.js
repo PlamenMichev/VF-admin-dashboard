@@ -6,7 +6,7 @@ const AssociationsService = {
     const response = await axiosInstance.get(
       `associations?page=${page}&perPage=${perPage}&orderBy=${orderBy}&searchQuery=${searchQuery}&orderDirection=${orderByDirection}`
     );
-    console.log(response.headers);
+
     const result = {
       data: response.data,
       pagination: getPaginationFromHeaders(response.headers),

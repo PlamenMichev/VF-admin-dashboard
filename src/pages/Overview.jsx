@@ -42,8 +42,7 @@ export default function Overview() {
 
     fetchData();
   }, []);
-  console.log(associationsUnitsCount);
-  console.log(subscriptionsData);
+
   return loading ? (
     <LoadingScreen />
   ) : (

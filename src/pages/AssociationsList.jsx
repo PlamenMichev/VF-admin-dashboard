@@ -64,7 +64,7 @@ export default function AssociationsList() {
         order,
         ''
       );
-      console.log(result);
+
       setTableData(result.data);
       setRowsPerPage(result.pagination.perPage);
       setTotalCount(result.pagination.totalCount);
