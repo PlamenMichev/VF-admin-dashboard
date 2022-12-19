@@ -25,6 +25,8 @@ const dk = {
       unitsCount: 'Antal husstande',
       createdAt: 'Dato',
     },
+    active: 'Akriv',
+    notActive: 'Ikke aktiv',
   },
   overviewPage: {
     title: 'Overblik',

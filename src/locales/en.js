@@ -27,7 +27,6 @@ const en = {
       subdomain: 'Subdomain',
       subscription: 'Subscription',
       unitsCount: 'Units count',
-      actions: 'Actions',
       createdAt: 'Created at',
     },
     active: 'Active',
